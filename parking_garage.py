@@ -1,3 +1,7 @@
+
+import time 
+from time import sleep    
+
 current_ticket = {}
 class Parking_Garage():
     """
@@ -15,6 +19,7 @@ class Parking_Garage():
 - Once paid, display message "Thank you, have a nice day!"
 - Update parkingSpaces list to increase by 1 (meaning add to the parkingSpaces list)
 - Update tickets list to increase by 1 (meaning add to the tickets list)
+
 
 You will need a few attributes as well:
 - tickets -> list
@@ -45,54 +50,34 @@ You will need a few attributes as well:
             print(f"Please park your car. There are now {self.spaces_available} spaces available")
     
     def payforParking(self):
-        paid = int(input("Your fee is $40. Please enter your payment, we do not give change!"))
 
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-current_ticket["driver_lp"],
-current_ticket["paid"],
-
-paid = ccurrent_ticket[specific ticket number][paid]
-        if paid == True:
+        confirm_pay = int(input("Please enter your spot number or enter 'lost' if you lost your ticket: "))
+        if confirm_pay == "lost":
+            sleep(1)
+            print(".....")
+            print("Sorry you lost your ticket. Unfortunately you now have to pay $100.")
+        elif current_ticket[confirm_pay]["Paid"] == True:
             print("Payment Succesful! You have 15 minutes to exit the garage!")
-            clear_output()
-        
-        # Step 5
-        if paid == False:
-            print("Your balance of $50 is now due.")
-            # Step 5a
-            for key,value in d.items():
-                print(f"The address for {key} is {value}.")
-            break #Step 5b
-
-
-
-
-
-
-    def leaveGarage(self):
-
-
-
-
-
+            self.leaveGarage()
+        elif current_ticket[confirm_pay]["Paid"] == False:
+            print("Your fee is $40. Please enter your payment, we do not give change!")  
+            final_pay = int(input("Please enter payment information below "))
+            if final_pay >= 40:
+                current_ticket[confirm_pay]["Paid"] = True
+            else:
+                print("Correct dollar amount was not entered. Try again.")
+        else:
+            print("Not a valid entry. Try again!")
             
+    def leaveGarage(self):
+        confirm = int(input("Please enter your ticket to confirm payment: "))
+        if current_ticket[confirm]["Paid"] == True:
+            print("You may now exit the garage. Have a nice day!")
+            self.spaces_available += 1
+        elif current_ticket[confirm]["Paid"] == False:
+            print("Please enter your payment, we do not give change!") 
+            self.spaces_available += 1   
+        else:
+            print("Not a valid entry. Try again!")
+
+      
